@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ── System aktualisieren ──────────────────────────────────────
 echo -n "Möchtest du ein Update und Upgrade durchführen? (j/n): "
 read -r update_system
@@ -27,10 +29,22 @@ if [[ "$tailscale_install" == "j" ]]; then
   exitnode_arg=""
   dns_arg=""
 
-  # Subnet-Routing abfragen
-  echo -n "Welches Subnetz soll für Tailscale freigegeben werden (z. B. 192.168.10.0/24)? (leer = kein Subnet-Routing): "
-  read -r user_subnet
-  [[ -n "$user_subnet" ]] && advertise_arg="--advertise-routes=${user_subnet}"
+  # Subnet-Routing abfragen (inkl. Vorschlag & Validierung)
+  echo -n "Möchtest du Subnet-Routing aktivieren? (j/n): "
+  read -r subnet_enable
+
+  if [[ "$subnet_enable" == "j" ]]; then
+    auto_subnet=$(ip -o -f inet addr show | awk '/scope global/ {split($4, a, "/"); print a[1]"/24"; exit}')
+    echo -e "\nDein vorgeschlagenes Subnetz wäre z. B.: ${auto_subnet}"
+    echo -n "Bitte Subnetz eingeben (z. B. 192.168.10.0/24): "
+    read -r user_subnet
+
+    if [[ "$user_subnet" =~ ^([0-9]{1,3}\.){3}0/([0-9]{1,2})$ ]]; then
+      advertise_arg="--advertise-routes=${user_subnet}"
+    else
+      echo "⚠️ Ungültiges Subnetz eingegeben – Subnet-Routing wird übersprungen."
+    fi
+  fi
 
   # Exit Node abfragen
   echo -n "Als Exit Node fungieren? (j/n): "
