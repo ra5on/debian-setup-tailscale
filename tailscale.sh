@@ -40,14 +40,21 @@ if [[ "$tailscale_install" == "j" ]]; then
         printf "%s.%s.%s.0/24", ip[1], ip[2], ip[3];
         exit
     }')
-    echo -e "\nDein vorgeschlagenes Subnetz wäre z. B.: ${auto_subnet}"
-    echo -n "Bitte Subnetz eingeben (z. B. 192.168.178.0/24): "
-    read -r user_subnet
+    echo -e "\n🔍 Vorgeschlagenes Subnetz: ${auto_subnet}"
+    echo -n "Möchtest du dieses Subnetz verwenden? (j/n): "
+    read -r use_auto_subnet
 
-    if [[ "$user_subnet" =~ ^([0-9]{1,3}\.){3}0/([0-9]{1,2})$ ]]; then
-      advertise_arg="--advertise-routes=${user_subnet}"
+    if [[ "$use_auto_subnet" == "j" ]]; then
+      advertise_arg="--advertise-routes=${auto_subnet}"
     else
-      echo "⚠️ Ungültiges Subnetz eingegeben – Subnet-Routing wird übersprungen."
+      echo -n "Bitte Subnetz manuell eingeben (z. B. 192.168.178.0/24): "
+      read -r user_subnet
+
+      if [[ "$user_subnet" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/([0-9]|[1-2][0-9]|3[0-2])$ ]]; then
+        advertise_arg="--advertise-routes=${user_subnet}"
+      else
+        echo "⚠️ Ungültiges Subnetz – Subnet-Routing wird übersprungen."
+      fi
     fi
   fi
 
