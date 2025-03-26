@@ -34,9 +34,14 @@ if [[ "$tailscale_install" == "j" ]]; then
   read -r subnet_enable
 
   if [[ "$subnet_enable" == "j" ]]; then
-    auto_subnet=$(ip -o -f inet addr show | awk '/scope global/ {split($4, a, "/"); print a[1]"/24"; exit}')
+    auto_subnet=$(ip -o -f inet addr show | awk '/scope global/ {
+        split($4, a, "/");
+        split(a[1], ip, ".");
+        printf "%s.%s.%s.0/24", ip[1], ip[2], ip[3];
+        exit
+    }')
     echo -e "\nDein vorgeschlagenes Subnetz wäre z. B.: ${auto_subnet}"
-    echo -n "Bitte Subnetz eingeben (z. B. 192.168.10.0/24): "
+    echo -n "Bitte Subnetz eingeben (z. B. 192.168.178.0/24): "
     read -r user_subnet
 
     if [[ "$user_subnet" =~ ^([0-9]{1,3}\.){3}0/([0-9]{1,2})$ ]]; then
@@ -56,13 +61,15 @@ if [[ "$tailscale_install" == "j" ]]; then
   read -r dns_answer
   [[ "$dns_answer" == "j" ]] && dns_arg="--accept-dns=true" || dns_arg="--accept-dns=false"
 
-  # IPv4/IPv6 Forwarding aktivieren
-  echo -e "\n🌐 Aktiviere IPv4 & IPv6 Forwarding..."
-  sudo sed -i '/net.ipv4.ip_forward/d' /etc/sysctl.conf
-  sudo sed -i '/net.ipv6.conf.all.forwarding/d' /etc/sysctl.conf
-  echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
-  echo "net.ipv6.conf.all.forwarding=1" | sudo tee -a /etc/sysctl.conf
-  sudo sysctl -p
+  # IPv4/IPv6 Forwarding aktivieren – nur wenn Subnet-Routing aktiv ist
+  if [[ -n "$advertise_arg" ]]; then
+    echo -e "\n🌐 Subnet-Routing aktiv – aktiviere IPv4 & IPv6 Forwarding..."
+    sudo sed -i '/net.ipv4.ip_forward/d' /etc/sysctl.conf
+    sudo sed -i '/net.ipv6.conf.all.forwarding/d' /etc/sysctl.conf
+    echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+    echo "net.ipv6.conf.all.forwarding=1" | sudo tee -a /etc/sysctl.conf
+    sudo sysctl -p
+  fi
 
   # Tailscale starten
   echo -e "\n🚀 Starte Tailscale mit deiner Konfiguration..."
