@@ -1,15 +1,3 @@
-#!/bin/bash
-
-# ── System aktualisieren ──────────────────────────────────────
-echo -n "Möchtest du ein Update und Upgrade durchführen? (j/n): "
-read -r update_system
-if [[ "$update_system" == "j" ]]; then
-  echo -e "\n🔄 System wird aktualisiert..."
-  sudo apt update && sudo apt upgrade -y
-else
-  echo "⏩ System-Update übersprungen."
-fi
-
 # ── Tailscale ──────────────────────────────────────────────────
 echo -n "Möchtest du Tailscale installieren und einrichten? (j/n): "
 read -r tailscale_install
@@ -98,3 +86,9 @@ if [[ "$tailscale_install" == "j" ]]; then
 else
   echo "⏩ Tailscale wird nicht installiert."
 fi
+
+
+
+
+
+
