@@ -14,6 +14,7 @@ Ein interaktives Bash-Script zum automatischen Einrichten von **Tailscale** auf 
 - Aktivierung von IPv4 und IPv6 Forwarding (für Subnet-Routing erforderlich)
 - Start von Tailscale mit den gewählten Optionen
 - Klar strukturierte Ausgaben und Statusmeldungen
+- Tailscale Authentifizierung per Link oder QR-Code möglich
 
 ## ⚙️ Verwendung
 
