@@ -87,13 +87,13 @@ if [[ "$tailscale_install" == "j" ]]; then
   echo -n "Möchtest du Tailscale jetzt mit diesen Einstellungen starten? (j/n): "
   read -r confirm_tailscale
   if [[ "$confirm_tailscale" == "j" ]]; then
-    sudo tailscale up $advertise_arg $exitnode_arg $dns_arg
-    echo -e "\n✅ Tailscale wurde gestartet. Jetzt ggf. im Browser autorisieren."
+    echo -e "\n🌐 Bitte öffne den folgenden Link im Browser, um dich mit Tailscale zu verbinden:"
+    sudo tailscale up $advertise_arg $exitnode_arg $dns_arg --qr 2>&1 | tee tailscale-login.log
+    echo -e "\n✅ Tailscale wurde gestartet (Login-Link oben oder QR-Code)."
   else
     echo -e "⏩ Start von Tailscale wurde abgebrochen."
   fi
 
-  # Zusammenfassungszeile für Ausgabe
   [[ "$tailscale_install" == "j" ]] && echo -e "\n🟢 Tailscale läuft $( [[ -n "$advertise_arg" ]] && echo "| Subnet Routing aktiv" ) $( [[ "$exitnode_answer" == "j" ]] && echo "| Exit Node" ) $( [[ "$dns_answer" == "j" ]] && echo "| DNS aktiv" || echo "| DNS aus" )"
 else
   echo "⏩ Tailscale wird nicht installiert."
