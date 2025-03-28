@@ -18,7 +18,7 @@ Ein interaktives Bash-Script zum automatischen Einrichten von **Tailscale** auf 
 
 ## ⚙️ Installation
 
-```
+
 Script herunterladen
 ```
 wget https://raw.githubusercontent.com/ra5on/tailscale-arm64/refs/heads/main/tailscale.sh
@@ -30,7 +30,6 @@ chmod +x setup.sh
 Script Starten
 ```
 ./setup.sh
-```
 ```
 > Das Script fragt dich schrittweise durch die Konfiguration. Es ist ideal für private Heimserver, Container-Hosts, Raspberry Pis uvm.
 
