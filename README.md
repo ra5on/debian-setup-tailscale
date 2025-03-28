@@ -16,11 +16,20 @@ Ein interaktives Bash-Script zum automatischen Einrichten von **Tailscale** auf 
 - Klar strukturierte Ausgaben und Statusmeldungen
 - Tailscale Authentifizierung per Link oder QR-Code möglich
 
-## ⚙️ Verwendung
+## ⚙️ Installation
 
-```bash
-chmod +x tailscale.sh
-./tailscale.sh
+```
+Script herunterladen
+```
+wget https://raw.githubusercontent.com/ra5on/tailscale-arm64/refs/heads/main/tailscale.sh
+```
+Script ausführbar machen
+```
+chmod +x setup.sh
+```
+Script Starten
+```
+./setup.sh
 ```
 
 > Das Script fragt dich schrittweise durch die Konfiguration. Es ist ideal für private Heimserver, Container-Hosts, Raspberry Pis uvm.
