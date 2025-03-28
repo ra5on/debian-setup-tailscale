@@ -56,16 +56,6 @@ Dieser Befehl macht das Script „ausführbar“. Ohne das würdest du beim Star
 Das `./` bedeutet: **"führe die Datei im aktuellen Ordner aus"**.  
 Du musst es so schreiben, da der aktuelle Ordner (.) normalerweise nicht automatisch im Suchpfad liegt.
 
-### 🧪 Beispiel (komplett)
-
-```bash
-nano tailscale.sh
-# → Script-Inhalt einfügen, speichern mit CTRL+O und schließen mit CTRL+X
-
-chmod +x tailscale.sh
-./tailscale.sh
-```
-
 ---
 
 ## 📦 Voraussetzungen
