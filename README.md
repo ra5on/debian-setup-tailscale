@@ -25,11 +25,11 @@ wget https://raw.githubusercontent.com/ra5on/tailscale-arm64/refs/heads/main/tai
 ```
 Script ausführbar machen
 ```
-chmod +x setup.sh
+chmod +x tailscale.sh
 ```
 Script Starten
 ```
-./setup.sh
+./tailscale.sh
 ```
 > Das Script fragt dich schrittweise durch die Konfiguration. Es ist ideal für private Heimserver, Container-Hosts, Raspberry Pis uvm.
 
