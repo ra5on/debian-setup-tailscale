@@ -1,6 +1,6 @@
 # debian-setup-tailscale
 
-Ein interaktives Bash-Script zum automatischen Einrichten von **Tailscale** auf Debian-Systemen mit Fokus auf **ARM64** (z. B. Raspberry Pi oder ARM-basierte Server).
+Ein interaktives Bash-Script zum automatischen Einrichten von **Tailscale** auf Debian-Systemen.
 
 ## ✅ Funktionen
 
