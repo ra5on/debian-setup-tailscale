@@ -31,7 +31,7 @@ Script Starten
 ```
 ./setup.sh
 ```
-
+```
 > Das Script fragt dich schrittweise durch die Konfiguration. Es ist ideal für private Heimserver, Container-Hosts, Raspberry Pis uvm.
 
 ---
