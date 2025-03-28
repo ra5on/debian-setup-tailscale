@@ -21,7 +21,7 @@ Ein interaktives Bash-Script zum automatischen Einrichten von **Tailscale** auf 
 
 Script herunterladen
 ```
-wget https://raw.githubusercontent.com/ra5on/tailscale-arm64/refs/heads/main/tailscale.sh
+wget https://raw.githubusercontent.com/ra5on/tailscale/refs/heads/main/tailscale.sh
 ```
 Script ausführbar machen
 ```
